@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="blog-post">
+            <h2 class="blog-post-title">{{ article.title }}</h2>
+            <p class="blog-post-meta">{{ article.date }}</p>
+            <p>
+            {% for month in months %}
+                <div class="blog-post">
+                    <h3 class="blog-post-title"><a data-toggle="collapse" href="#{{ month.0 }}" aria-expanded="false" aria-controls="collapseExample" class="clink" >{{ month.1 }} {{ month.2 }}</a></h3>
+                    <div class="collapse" id="{{ month.0 }}" style="margin-left:20px">
+                        {% for article in month.3 %}
+                        <p>
+                            <a href="" class="clink">{{ article.title }}</a>
+                            <br>
+                            {% for kw in article.keywords.all %}
+                                <span class="badge" style="background-color:{{ kw.color }}">{{ kw.title }}</span>
+                            {% endfor %}
+                        </p>
+                        {% endfor %}
+                    </div>
+                    <hr></hr>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

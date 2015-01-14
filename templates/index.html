@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for article in articles %}
+        <div class="blog-post">
+            <a class="clink" href="/article/{{ article.id}}"><h2 class="blog-post-title">{{ article.title }}</h2></a>
+            <p class="blog-post-meta">{{ article.date }}</p>
+            <p>
+                {{ article.content|safe }}
+            </p>
+        </div>
+        {% for k in article.keywords.all %}
+        <a href="/kw/{{ k.title }}"><span class="badge" style="background-color:{{ k.color }}">{{ k.title }}</span></a>
+        {% endfor %}
+        <hr></hr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="blog-post">
+        <h3 class="blog-post-title"><a data-toggle="collapse" href="#prog" aria-expanded="false" class="clink" aria-controls="collapseExample">Programmation</a></h3>
+        <hr></hr>
+        <div class="collapse" id="prog" style="margin-left:20px;"> 
+            {% for article in knowledges %}
+                <div class="blog-post">
+                    <h4 class="blog-post-title"><a data-toggle="collapse" href="#{{ article.id }}" aria-expanded="false" class="clink" aria-controls="collapseExample">{{ article.title }}</a></h4>
+                    <p>
+                        {{ article.content|safe }}
+                    </p>
+                        {{ article.collapse|safe }}
+                </div>
+                <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+    <h3 class="blog-post-title"><a data-toggle="collapse" href="#cap" aria-expanded="false" aria-controls="collapseExample" class="clink" >Capacités</a></h3>
+        <hr></hr>
+        <div class="collapse" id="cap" style="margin-left:20px;">
+            {% for comp in comps %}
+                <h4>{{ comp.title }}</h4>
+                <p>{{ comp.content }}</p>
+                <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+        <h3 class="blog-post-title"><a data-toggle="collapse" href="#lang" aria-expanded="false" aria-controls="collapseExample" class="clink">Langues</a></h3>
+        <hr></hr>
+        <div class="collapse" id="lang" style="margin-left:20px">
+            {% for language in languages %}
+            <h4 class="blog-post-title">{{ language.title }}</h4>
+            {{ language.content }}
+            <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+        <h3 class="blog-post-title"><a data-toggle="collapse" href="#projects" aria-expanded="false" aria-controls="collapseExample" class="clink">Projets</a></h3>
+        <hr></hr>
+        <div class="collapse" id="projects" style="margin-left:20px">
+            {% for project in projects %}
+                <h4 class="blog-post-title">{{ project.title }}</h4>
+                {{ project.content }}
+                <br>
+                <a href="" class="clink"><span class="glyphicon glyphicon-globe"></span></a>
+                <a href="" class="clink"><span class="glyphicon glyphicon-send"></span></a>
+                <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+     <div class="blog-post">
+        <h3 class="blog-post-title"><a data-toggle="collapse" href="#motivation" aria-expanded="false" aria-controls="collapseExample" class="clink" >Motivations</a></h3>
+        <hr></hr>
+        <div class="collapse" id="motivation" style="margin-left:20px;">
+            {% for motivation in motivations %}
+                <h4>{{ motivation.title }}</h4>
+                <p>
+                    {{ motivation.content }}
+                </p>
+                <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+    <h3 class="blog-post-title"><a data-toggle="collapse" href="#workedat" aria-expanded="false" aria-controls="collapseExample" class="clink" >Précédement</a></h3>
+        <hr></hr>
+        <div class="collapse" id="workedat" style="margin-left:20px;">
+            {% for job in jobs %}
+            <h4>{{ job.title }}</h4>
+            <p>{{ job.content }}</p>
+            <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+    <h3 class="blog-post-title"><a data-toggle="collapse" href="#certif" aria-expanded="false" aria-controls="collapseExample" class="clink" >Cértifications</a></h3>
+        <hr></hr>
+        <div class="collapse" id="certif" style="margin-left:20px;">
+            {% for cert in certs %}
+            <h4>{{ cert.title }}</h4>
+            <p>{{ cert.content }}</p>
+            <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+    <h3 class="blog-post-title"><a data-toggle="collapse" href="#read" aria-expanded="false" aria-controls="collapseExample" class="clink" >Mes lectures</a></h3>
+        <hr></hr>
+        <div class="collapse" id="read" style="margin-left:20px;">
+            {% for cert in certs %}
+            <h3>{{ cert.title }}</h3>
+            <p>{{ cert.content }}</p>
+            <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-post">
+    <h3 class="blog-post-title"><a data-toggle="collapse" href="#support" aria-expanded="false" aria-controls="collapseExample" class="clink" >Support</a></h3>
+        <hr></hr>
+        <div class="collapse" id="support" style="margin-left:20px;">
+            {% for cert in certs %}
+            <h4>{{ cert.title }}</h4>
+            <p>{{ cert.content }}</p>
+            <hr></hr>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+   {% endblock %}

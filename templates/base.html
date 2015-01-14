@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>DatDoc</title>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="blog-header">
+        <h1 class=""><a class="clink" href="/" class="pull-right">DatDoc</a></h1>
+        <p class="blog-description">
+            ``La vie de l'homme dépend de sa volonté ; sans volonté, elle serait abandonnée au hasard.``
+            <br>
+            Confucius 
+        </p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main" style="margin-top:100px; margin-bottom:100px;">
+            {% block content %}
+            {% endblock %}
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 sidebar" style="margin-top:50px;">
+            <div class="sidebar" style="margin-top:-60px;">
+                <canvas id="cvsup"></canvas>
+                <script>
+                    var canvas = document.getElementById('cvsup');
+                    var context = canvas.getContext('2d');
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.moveTo(100, 5);
+                    context.lineTo(100, 60)
+                    // context.quadraticCurveTo(90, 45, 100, 85);
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.moveTo(0,5);
+                    context.lineTo(200,5)
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                </script>
+                <script>
+                    $( window ).scroll(function() {
+                        var canvas = document.getElementById('cvsup')
+                        var context = canvas.getContext('2d')
+                        context.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                        context.beginPath();
+                        context.lineWidth = 1;
+                        context.moveTo(0,5);
+                        context.lineTo(200,5)
+                        context.strokeStyle = '#333';
+                        context.stroke();
+                        context.beginPath();
+                        context.lineWidth = 1;
+                        context.moveTo(100, 6);
+                        // context.quadraticCurveTo(90, 45, 100, 85);
+                        context.quadraticCurveTo(100+(Math.sin($(document).scrollTop() / 255) * 90), 45, 100, 60);
+                        context.strokeStyle = '#333';
+                        context.stroke();
+                    })
+                </script>
+            </div>
+
+
+
+            <div class="sidebar">
+                <img src="http://i.imgur.com/15xiv7U.jpg" style="width:200px;">
+            </div>
+            <div class="sidebar" style="margin-top:210px;">
+              <a href="/archive" class="clink">Archive</a>
+              <br>
+              <a href="/cv" class="clink">CV</a>
+              <br>
+              <a href="mailto:contact@datdoc.com?Subject=Hello%20World" class="clink" target="_top">Contacter</a>
+            </div>
+            <div class="sidebar" style="width:210px; margin-top:265px;">
+                <h4>A propos</h4>
+                <p>
+                    Développeur, Entrepreneur, DJ, Rebel, Amoureux d’Epitech, spécialisé dans les technologies Web et grand passionné des communautés aussi diverses que mystiques.
+                </p>
+            </div>
+            <div class="sidebar" style="margin-top:420px;">
+                <h4>Aussi sur</h4>
+                <ol class="list-unstyled">
+                    <li><a class="clink" href="https://twitter.com/PsyArchive">Twitter</a></li>
+                    <li><a class="clink" href="https://www.facebook.com/psyarchivesounds">Facebook</a></li>
+                    <li><a class="clink" href="https://soundcloud.com/psy-archive">Soundcloud</a></li>
+                </ol>
+            </div>
+            <div class="sidebar" style="margin-top:520px; width:230px;">
+                <h4>Mots-clés</h4>
+                {% for keyword in kw %}
+                <a href="/kw?ids={{ keyword.id }}"><span class="badge" style="background-color:{{ keyword.color }}">{{ keyword.title }}</span></a>
+                {% endfor %}
+            </div>
+            <div class="sidebar" style="margin-top:600px;">
+                <canvas id="cvsdown"></canvas>
+                <script>
+                    var canvas = document.getElementById('cvsdown');
+                    var context = canvas.getContext('2d');
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.moveTo(100, 5);
+                    context.lineTo(100, 115)
+                    // context.quadraticCurveTo(90, 45, 100, 85);
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.moveTo(0,5);
+                    context.lineTo(200,5)
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                </script>
+                <script>
+                    $( window ).scroll(function() {
+                        var canvas = document.getElementById('cvsdown')
+                        var context = canvas.getContext('2d')
+                        context.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                        context.beginPath();
+                        context.lineWidth = 1;
+                        context.moveTo(0,5);
+                        context.lineTo(200,5)
+                        context.strokeStyle = '#333';
+                        context.stroke();
+                        context.beginPath();
+                        context.lineWidth = 1;
+                        context.moveTo(100, 6);
+                        // context.quadraticCurveTo(90, 45, 100, 85);
+                        context.quadraticCurveTo(100-(Math.sin($(document).scrollTop() / 250) * 40), 45, 100, 115);
+                        context.strokeStyle = '#333';
+                        context.stroke();
+                    })
+                </script>
+            </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+   
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

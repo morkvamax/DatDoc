@@ -1,0 +1,40 @@
+
+.clink {
+    color: black;
+}
+
+.clink:hover {
+    color: rgb(80,90,90) ;
+    text-decoration:none;
+}
+
+.clink:active {
+    color: rgb(80, 90,90);
+    text-decoration:none;
+}
+
+.cling:focus {
+    color: rgb(80, 90, 90);
+    text-decoration:none;
+}
+
+.sidebar {
+    position:fixed;
+    z-index:3;
+}
+
+body {
+    background-color:rgb(235,235,235) !important;
+}
+
+.blog-header {
+    position:fixed;
+    z-index:2;
+    background-color:rgb(235,235,235);
+    width:100%;
+}
+
+.blog-main {
+    position:absolute;
+    z-index:1;
+}
