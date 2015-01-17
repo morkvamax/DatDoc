@@ -1,5 +1,9 @@
 from django.shortcuts import render, HttpResponse, render_to_response
 from django.template import RequestContext
+from django.core.paginator import Paginator
+from django.db.models import Q
+
+from functools import reduce
 
 from blog.models import Article, Knowledge, Language, Project, Motivation, Competency, Certificate, Job, KeyWord
 
@@ -7,11 +11,30 @@ def construct_cd(request):
     context = {'kw': KeyWord.objects.all()}
     return context, RequestContext(request)
 
-def index(request):
+def index(request, page=1):
     articles = Article.objects.filter(publish=True).order_by('-date')
+    p = Paginator(articles, 3)
     context, req_context = construct_cd(request)
-    context['articles'] = articles
-    return render_to_response('index.html', context, req_context)
+    if int(page) == p.num_pages + 1:
+        return render_to_response('end.html', context, req_context)
+    if int(page) > p.num_pages:
+        return HttpResponse('done')
+    if page == 1:
+        context['articles'] = p.page(page)
+        return render_to_response('index.html', context, req_context)
+    else:
+        context['articles'] = p.page(page)
+        return render_to_response('indexp.html', context, req_context)
+
+def search(request):
+    context, req_context = construct_cd(request)
+    kw = request.GET.getlist('kw')
+    print(kw)
+    if len(kw) >= 1:
+        context['articles'] = Article.objects.filter(reduce(lambda x, y: x | y, [Q(title__icontains=word) for word in kw]) |
+                                                     reduce(lambda x, y: x | y, [Q(content__icontains=word) for word in kw]),
+                                                     publish=True).order_by('-date')
+    return render_to_response('search.html', context, req_context)
 
 def cv(request):
     context, req_context = construct_cd(request)
@@ -27,7 +50,7 @@ def cv(request):
 def keyword(request):
     context, req_context = construct_cd(request)
     context['keywords'] = KeyWord.objects.filter(id__in=request.GET.getlist('ids'))
-    context['articles'] = Article.objects.filter(keywords__in=context['keywords'])
+    context['articles'] = Article.objects.filter(keywords__in=context['keywords'], publish=True).order_by('-date')
     return render_to_response('keywords.html', context, req_context)
 
 def article(request, articleid):

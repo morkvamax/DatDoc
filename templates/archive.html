@@ -11,7 +11,7 @@
                     <div class="collapse" id="{{ month.0 }}" style="margin-left:20px">
                         {% for article in month.3 %}
                         <p>
-                            <a href="" class="clink">{{ article.title }}</a>
+                        <a href="/article/{{ article.id }}" class="clink">{{ article.title }}</a>
                             <br>
                             {% for kw in article.keywords.all %}
                                 <span class="badge" style="background-color:{{ kw.color }}">{{ kw.title }}</span>

@@ -20,7 +20,42 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class=""><a class="clink" href="/" class="pull-right">DatDoc</a></h1>
+          <h1 class="">
+            <a class="clink" href="/" class="pull-right">DatDoc</a>
+            <canvas id="searchcvs" class="searchcvs"></canvas>
+            <h4><input id="searchinput" class="searchinput"></input></h4>
+            <script>
+                $(".searchinput").keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        url = '/search';
+                        s = document.getElementById('searchinput').value.split(" ");
+                        for (val in s) {
+                            url = url + '?kw=' + s[val];
+                            window.location.href = url;
+                        }
+                        }
+                        });
+            </script>
+            <span class="glyphicon glyphicon-search searchgly"></span>
+            <script>
+                var cvs = document.getElementById('searchcvs');
+                var ctx = cvs.getContext('2d');
+                ctx.lineWidth = 3;
+                ctx.moveTo(0, 29);
+                ctx.lineTo(20, 1);
+                ctx.lineTo(20, 55);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+                ctx.moveTo(20, 55);
+                ctx.lineTo(275, 1);
+                ctx.lineTo(275, 55);
+                ctx.lineTo(20, 55);
+                ctx.lineTo(20, 1);
+                ctx.lineTo(275, 1);
+                ctx.fill();
+
+            </script>
+        </h1>
         <p class="blog-description">
             ``La vie de l'homme dépend de sa volonté ; sans volonté, elle serait abandonnée au hasard.``
             <br>
@@ -31,11 +66,30 @@
       <div class="row">
 
         <div class="col-sm-8 blog-main" style="margin-top:100px; margin-bottom:100px;">
+            <div id="blog-main">
             {% block content %}
             {% endblock %}
+            </div>
         </div><!-- /.blog-main -->
 
         <div class="col-sm-3 col-sm-offset-1 sidebar" style="margin-top:50px;">
+            <div class="sidebar">
+                <canvas id="rightbar" class="sidecanvas" style="margin-top:-5px; height=100%;">
+                </canvas>
+                <script>
+                    var canvas = document.getElementById('rightbar');
+                    var context = canvas.getContext('2d');
+                    context.canvas.height = window.innerHeight;
+                    context.beginPath();
+                    context.lineWidth = 1;
+                    context.moveTo(205, 0);
+                    context.lineTo(205, 610);
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                </script>
+            </div>
+
+            
             <div class="sidebar" style="margin-top:-60px;">
                 <canvas id="cvsup"></canvas>
                 <script>
@@ -44,8 +98,10 @@
                     context.beginPath();
                     context.lineWidth = 1;
                     context.moveTo(100, 5);
-                    context.lineTo(100, 60)
-                    // context.quadraticCurveTo(90, 45, 100, 85);
+                    context.lineTo(100, 55)
+                    context.moveTo(100, 55);
+                    context.lineTo(205, 55)
+    // context.quadraticCurveTo(90, 45, 100, 85);
                     context.strokeStyle = '#333';
                     context.stroke();
                     context.beginPath();
@@ -70,7 +126,10 @@
                         context.lineWidth = 1;
                         context.moveTo(100, 6);
                         // context.quadraticCurveTo(90, 45, 100, 85);
-                        context.quadraticCurveTo(100+(Math.sin($(document).scrollTop() / 255) * 90), 45, 100, 60);
+                        context.quadraticCurveTo(100+(Math.sin($(document).scrollTop() / 255) * 90), 45, 100, 55);
+                        context.moveTo(100, 55);
+                        context.lineTo(205, 55)
+
                         context.strokeStyle = '#333';
                         context.stroke();
                     })
@@ -89,7 +148,12 @@
               <br>
               <a href="mailto:contact@datdoc.com?Subject=Hello%20World" class="clink" target="_top">Contacter</a>
             </div>
-            <div class="sidebar" style="width:210px; margin-top:265px;">
+            <div class="sidebar" style="margin-top:210px; margin-left:135px;">
+                <!-- <a href="/depots" class="clink">Depots</a>  
+                <br>
+                <a href="/documentations" class="clink">Docs</a> --!>
+            </div>
+            <div class="sidebar" style="width:200px; margin-top:265px;">
                 <h4>A propos</h4>
                 <p>
                     Développeur, Entrepreneur, DJ, Rebel, Amoureux d’Epitech, spécialisé dans les technologies Web et grand passionné des communautés aussi diverses que mystiques.
@@ -103,7 +167,7 @@
                     <li><a class="clink" href="https://soundcloud.com/psy-archive">Soundcloud</a></li>
                 </ol>
             </div>
-            <div class="sidebar" style="margin-top:520px; width:230px;">
+            <div class="sidebar kw" style="margin-top:520px; width:200px;">
                 <h4>Mots-clés</h4>
                 {% for keyword in kw %}
                 <a href="/kw?ids={{ keyword.id }}"><span class="badge" style="background-color:{{ keyword.color }}">{{ keyword.title }}</span></a>
@@ -116,15 +180,15 @@
                     var context = canvas.getContext('2d');
                     context.beginPath();
                     context.lineWidth = 1;
-                    context.moveTo(100, 5);
-                    context.lineTo(100, 115)
+                    context.moveTo(99, 5);
+                    context.lineTo(100, 900);
                     // context.quadraticCurveTo(90, 45, 100, 85);
                     context.strokeStyle = '#333';
                     context.stroke();
                     context.beginPath();
                     context.lineWidth = 1;
-                    context.moveTo(0,5);
-                    context.lineTo(200,5)
+                    context.moveTo(99,5);
+                    context.lineTo(205,5)
                     context.strokeStyle = '#333';
                     context.stroke();
                 </script>
@@ -135,8 +199,8 @@
                         context.clearRect ( 0 , 0 , canvas.width, canvas.height );
                         context.beginPath();
                         context.lineWidth = 1;
-                        context.moveTo(0,5);
-                        context.lineTo(200,5)
+                        context.moveTo(99,5);
+                        context.lineTo(205,5)
                         context.strokeStyle = '#333';
                         context.stroke();
                         context.beginPath();
